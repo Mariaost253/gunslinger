@@ -1,0 +1,57 @@
+[
+  {
+    "id": 1,
+    "name": "Pistol",
+    "type": "Sidearm (2 lb.)",
+    "cost": "50 gp",
+    "range": "40/120",
+    "damage": "1d6 piercing",
+    "reload": "6 shots",
+    "properties": "Load, Pocket",
+    "inStock": 0
+  },
+  {
+    "id": 2,
+    "name": "Hand Cannon",
+    "type": "Hand cannon (3 lb.)",
+    "cost": "85 gp",
+    "range": "60/180",
+    "damage": "1d8 piercing",
+    "reload": "6 shots",
+    "properties": "Kick (12), Loud",
+    "inStock": 0
+  },
+  {
+    "id": 3,
+    "name": "Repeating Rifle",
+    "type": "Repeating Rifle (8 lb.)",
+    "cost": "90 gp",
+    "range": "150/450",
+    "damage": "1d10 piercing",
+    "reload": "6 shots",
+    "properties": "Loud, Two-Handed",
+    "inStock": 0
+  },
+  {
+    "id": 4,
+    "name": "Shotgun, Repeating",
+    "type": "Repeating (7 lb.)",
+    "cost": "140 gp",
+    "range": "20/30",
+    "damage": "1d10 piercing",
+    "reload": "6 shots",
+    "properties": "Loud, Special, Two-Handed",
+    "inStock": 0
+  },
+  {
+    "id": 5,
+    "name": "Shotgun, Sawed-Off",
+    "type": "Sawed-Off (7 lb.)",
+    "cost": "85 gp",
+    "range": "10/20",
+    "damage": "1d10 piercing",
+    "reload": "2 shots",
+    "properties": "Kick (14), Loud, Special",
+    "inStock": 0
+  }
+]
