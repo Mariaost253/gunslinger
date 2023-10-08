@@ -74,8 +74,8 @@
 
       </div>
       <q-card-actions class ="q-ml-xs" style="align-items: center; position: relative;">
-        <q-btn no-caps color="primary" class="btn" @click="reloadOne()">Reload</q-btn>
-        <q-btn no-caps color="primary" class="btn" @click="reloadAll()">Reload All</q-btn>
+        <q-btn no-caps color="primary" class="btn" @click="reloadOne()" >Reload</q-btn>
+        <q-btn no-caps color="primary" class="btn" @click="reloadAll()" :disable="reloadAllBtn">Reload All</q-btn>
         <q-btn no-caps color="red" class="btn" @click="fire()">Fire</q-btn>
       </q-card-actions>
     </div>
@@ -84,6 +84,7 @@
 </template>
 
 <script>
+import miscData from '@/server/assets/miscData.json'
 export default {
   name: 'SkillComponent',
   props: {
@@ -100,7 +101,13 @@ export default {
   },
   data() {
     return {
-      bullets: [false, false, false, false, false, false]
+      bullets: [false, false, false, false, false, false],
+      critManager: miscData.critManager,
+      numShotgunBullet: miscData.numShotgunBullet,
+      numPistolBullet: miscData.numPistolBullet,
+      pistolIds: [1,2,3],
+      shotgunsIds: [4,5],
+      reloadAllBtn: false
     }
   }, 
   mounted() {
@@ -109,34 +116,49 @@ export default {
   methods :{
     updateBullets() {
       const { inStock } = this.item;
-
-      // Update the bullets array based on the value of inStock
       for (let i = 0; i < this.bullets.length; i++) {
         this.bullets[i] = i < inStock;
       }
     },
     reloadAll(){
-      if(this.item.id != 5){
-      this.bullets = this.bullets.map(() => true);
-      } else{
-        this.bullets[0] = true;
-        this.bullets[1] = true;
-      }
       const count = this.bullets.reduce((count, bullet) => {
         return count + (bullet ? 1 : 0); }, 0);
-      this.$emit('update-json', this.item.id, count);
+      if(this.pistolIds.includes(this.item.id) && this.numPistolBullet > (6 - count)){
+           this.bullets = this.bullets.map(() => true);
+           this.sendToJson();
+           this.updateInventory(true,6 - count);
+          } 
+        if(this.shotgunsIds.includes(this.item.id)){
+          
+          if(this.item.id == 4 && this.numShotgunBullet > (6-count) ){
+              this.bullets = this.bullets.map(() => true);
+              this.updateInventory(false,6 - count);
+             }
+             if(this.item.id == 5 && this.numShotgunBullet >(2-count) ){
+              this.bullets[0] = true;
+             this.bullets[1] = true;
+             this.updateInventory(false,2 - count);
+           }
+           this.sendToJson();
+        }
     },
     reloadOne() {
     const len = this.item.id == 5 ? 2 :this.bullets.length;
+    if((this.numShotgunBullet > 0 && this.shotgunsIds.includes(this.item.id)) || 
+          (this.numPistolBullet > 0 && this.pistolIds.includes(this.item.id))){
     for (let i = 0; i < len; i++) {
       if (this.bullets[i] !== true) {
         this.bullets[i] = true;
         break;
         }
       }
-      const count = this.bullets.reduce((count, bullet) => {
-        return count + (bullet ? 1 : 0); }, 0);
-      this.$emit('update-json', this.item.id, count);
+      if(this.pistolIds.includes(this.item.id)){
+        this.updateInventory(true,1);
+      } else if (this.shotgunsIds.includes(this.item.id)){
+        this.updateInventory(false,1);
+      }
+      this.sendToJson();
+    }
     },
     fire(){
       for (let i = this.bullets.length - 1; i >= 0; i--) {
@@ -145,9 +167,15 @@ export default {
         break;
       }
     }
-    const count = this.bullets.reduce((count, bullet) => {
+    this.sendToJson();
+    },
+    sendToJson(){
+      const count = this.bullets.reduce((count, bullet) => {
         return count + (bullet ? 1 : 0); }, 0);
-    this.$emit('update-json', this.item.id, count);
+        this.$emit('update-json', this.item.id, count);
+    },
+    updateInventory(which, amount){
+      this.$emit('update-inventory', which, amount);
     }
   }
 }

@@ -5,16 +5,16 @@
   <div class="justify-start items-start content-start col-auto">
       <q-card-section>
         <div class="q-gutter-sm">
+        <q-input dense filled v-model="numPistolBullet" type="Number">
+          <template v-slot:before>
+            <label>Rounds Own: </label>
+           </template>
+        </q-input>
           <q-input dense filled v-model="numShotgunBullet" type="Number">
            <template v-slot:before>
               <label>Shots Own: </label>
            </template>
          </q-input>
-         <q-input dense filled v-model="numPistolBullet" type="Number">
-          <template v-slot:before>
-            <label>Rounds Own: </label>
-           </template>
-        </q-input>
         </div>
     </q-card-section>
   </div>
@@ -48,6 +48,7 @@
         <SkillComponent 
         :item="props.row"
         @update-json = "updateInStock"
+        @update-inventory = "updateInventory"
         />
       </template>
     </q-table>
@@ -63,11 +64,13 @@ import SkillComponent from '@/components/SkillComponent.vue'
 import data from '@/server/assets/data.json'
 import miscData from '@/server/assets/miscData.json'
 import axios from 'axios';
+
 export default {
   name: 'HomeView',
   components: {
     SkillComponent
   },
+  
   data() {
     return {
       items: data,
@@ -94,6 +97,15 @@ export default {
         itemToUpdate.inStock = newInStockValue;
       }
       this.saveBulletsData();
+    },
+    updateInventory(which, amount){
+        if(which){
+          this.numPistolBullet -= amount;
+        }
+        else{
+          this.numShotgunBullet -= amount;
+        }
+        this.saveData();
     },
     async saveData() {
       try {
