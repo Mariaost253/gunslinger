@@ -1,5 +1,5 @@
 {
-  "critManager": "20",
-  "numShotgunBullet": 0,
-  "numPistolBullet": 0
+  "critManager": "16",
+  "numShotgunBullet": 4,
+  "numPistolBullet": 60
 }

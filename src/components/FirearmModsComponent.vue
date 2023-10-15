@@ -30,7 +30,7 @@ remove or replace an existing muzzle device.<br/>
               The unique properties of the magic items in the preceding
 appendix are presented here, categorized by rarity for use
 as runestones.<br/>
-<span style="color: darkred;"><b>New Runestones</b></span><br />
+<span style="color: burlywood;"><b>New Runestones:</b></span><br />
            <span style="color: burlywood;"><b>Common:</b></span> Hawkeye <br />
            <span style="color: burlywood;"><b>Uncommon: </b></span>Prism, Sureshot, Underdog <br />
            <span style="color: burlywood;"><b>Rare: </b></span>Death Sentence, Fireball, Ghostbuster<br />
@@ -81,7 +81,7 @@ margin-bottom: 10px;
 
 .title {
 font-weight: 700;
-color: darkred;
+color: #ff5454;
 text-align: start;
 }
 

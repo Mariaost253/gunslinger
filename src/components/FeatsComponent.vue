@@ -93,7 +93,7 @@ margin-bottom: 10px;
 
 .title {
 font-weight: 700;
-color: darkred;
+color: #ff5454;
 text-align: start;
 }
 

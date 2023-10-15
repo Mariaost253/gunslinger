@@ -8,7 +8,7 @@
     "damage": "1d6 piercing",
     "reload": "6 shots",
     "properties": "Load, Pocket",
-    "inStock": 0
+    "inStock": 4
   },
   {
     "id": 2,
@@ -19,7 +19,7 @@
     "damage": "1d8 piercing",
     "reload": "6 shots",
     "properties": "Kick (12), Loud",
-    "inStock": 0
+    "inStock": 6
   },
   {
     "id": 3,
@@ -30,7 +30,7 @@
     "damage": "1d10 piercing",
     "reload": "6 shots",
     "properties": "Loud, Two-Handed",
-    "inStock": 0
+    "inStock": 6
   },
   {
     "id": 4,
@@ -52,6 +52,6 @@
     "damage": "1d10 piercing",
     "reload": "2 shots",
     "properties": "Kick (14), Loud, Special",
-    "inStock": 0
+    "inStock": 2
   }
 ]
