@@ -62,8 +62,8 @@
           unchecked-icon="highlight_off"
       />
       <q-checkbox 
-      dark
-      color="red"
+         dark
+           color="red"
           v-model="bullets[5]"
           disable
           size="md"
@@ -76,7 +76,7 @@
       <q-card-actions class ="q-ml-xs" style="align-items: center; position: relative;">
         <q-btn no-caps color="primary" class="btn" @click="reloadOne()" >Reload</q-btn>
         <q-btn no-caps color="primary" class="btn" @click="reloadAll()" :disable="reloadAllBtn">Reload All</q-btn>
-        <q-btn no-caps color="red" class="btn" @click="fire()">Fire</q-btn>
+        <q-btn no-caps color="red" class="btn" @click="fire()" >Fire</q-btn>
       </q-card-actions>
     </div>
     </q-card>
@@ -123,23 +123,41 @@ export default {
     reloadAll(){
       const count = this.bullets.reduce((count, bullet) => {
         return count + (bullet ? 1 : 0); }, 0);
-      if(this.pistolIds.includes(this.item.id) && this.numPistolBullet > (6 - count)){
-           this.bullets = this.bullets.map(() => true);
+      if(this.pistolIds.includes(this.item.id) && this.numPistolBullet > 0){
+        const bulletsToChange = Math.min(this.numPistolBullet, 6 - count);
+          for (let i = 0; i < bulletsToChange; i++) {
+              const indexToChange = this.bullets.indexOf(false);
+              if (indexToChange !== -1) {
+                 this.bullets[indexToChange] = true;
+                }
+           }
            this.sendToJson();
-           this.updateInventory(true,6 - count);
+           this.updateInventory(true,bulletsToChange);
           } 
         if(this.shotgunsIds.includes(this.item.id)){
           
-          if(this.item.id == 4 && this.numShotgunBullet > (6-count) ){
-              this.bullets = this.bullets.map(() => true);
-              this.updateInventory(false,6 - count);
-             }
-             if(this.item.id == 5 && this.numShotgunBullet >(2-count) ){
-              this.bullets[0] = true;
-             this.bullets[1] = true;
-             this.updateInventory(false,2 - count);
+          if(this.item.id == 4 && this.numShotgunBullet > 0 ){
+            const bulletsToChange = Math.min(this.numShotgunBullet, 6 - count);
+          for (let i = 0; i < bulletsToChange; i++) {
+              const indexToChange = this.bullets.indexOf(false);
+              if (indexToChange !== -1) {
+                 this.bullets[indexToChange] = true;
+                }
            }
            this.sendToJson();
+           this.updateInventory(false, bulletsToChange);
+        }
+             if(this.item.id == 5 && this.numShotgunBullet > 0 ){
+              const bulletsToChange = Math.min(this.numShotgunBullet, 2 - count);
+          for (let i = 0; i < bulletsToChange; i++) {
+              const indexToChange = this.bullets.indexOf(false);
+              if (indexToChange !== -1) {
+                 this.bullets[indexToChange] = true;
+                }
+           }
+           this.sendToJson();
+           this.updateInventory(false, bulletsToChange);
+           }
         }
     },
     reloadOne() {

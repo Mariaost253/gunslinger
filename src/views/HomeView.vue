@@ -1,6 +1,147 @@
 <template>
-    <div class="row justify-center q-pa-md">
-  <div class="home">
+  <div >
+    <q-layout view="hHh Lpr lff" container style="height: 100vh" class="shadow-2 rounded-borders">
+      <q-drawer
+        v-model="drawer"
+        show-if-above
+
+        :mini="miniState"
+        @mouseover="miniState = false"
+        @mouseout="miniState = true"
+        mini-to-overlay
+        
+        :width="200"
+        :breakpoint="500"
+        bordered
+        dark
+      >
+        <q-scroll-area class="fit" :horizontal-thumb-style="{ opacity: 0 }">
+          <q-list padding>
+            <q-item   
+            :active="activeItem === 'main'" 
+            clickable
+            v-ripple
+            style="text-align: start; font-weight: 700;"
+            @click="changePage('main')"
+            :style="{ color: activeItem === 'main' ? 'red' : '' }"
+            >
+              <q-item-section avatar>
+                <q-icon name="person" />
+              </q-item-section>
+              
+              <q-item-section >
+                Main
+              </q-item-section>
+            </q-item>
+
+            <q-item   
+            :active="activeItem === 'general'" 
+            clickable
+            v-ripple
+            style="text-align: start; font-weight: 700;"
+            @click="changePage('general')"
+            :style="{ color: activeItem === 'general' ? 'red' : '' }"
+            >
+              <q-item-section avatar>
+                <q-icon name="blur_on" />
+              </q-item-section>
+
+              <q-item-section >
+                General
+              </q-item-section>
+            </q-item>
+
+            <q-item   
+            :active="activeItem === 'feature'" 
+            clickable
+            v-ripple
+            style="text-align: start; font-weight: 700;"
+            @click="changePage('feature')"
+            :style="{ color: activeItem === 'feature' ? 'red' : '' }"
+            >
+              <q-item-section avatar>
+                <q-icon name="grain" />
+              </q-item-section>
+
+              <q-item-section>
+                Features
+              </q-item-section>
+            </q-item>
+
+            <q-item   
+            :active="activeItem === 'sub'" 
+            clickable
+            v-ripple
+            style="text-align: start;font-weight: 700;"
+            @click="changePage('sub')"
+            :style="{ color: activeItem === 'sub' ? 'red' : '' }"
+            >
+            <q-item-section avatar>
+                <q-icon name="deblur" />
+              </q-item-section>
+
+              <q-item-section>
+                Sub Classes
+              </q-item-section>
+            </q-item>
+
+            <q-item   
+            :active="activeItem === 'firearms'" 
+            clickable
+            v-ripple
+            style="text-align: start;font-weight: 700;"
+            @click="changePage('firearms')"
+            :style="{ color: activeItem === 'firearms' ? 'red' : '' }"
+            >
+            <q-item-section avatar>
+                <q-icon name="blur_circular" />
+              </q-item-section>
+
+              <q-item-section>
+                Firearms
+              </q-item-section>
+            </q-item>
+
+            <q-item   
+            :active="activeItem === 'feats'" 
+            clickable
+            v-ripple
+            style="text-align: start;font-weight: 700;"
+            @click="changePage('feats')"
+            :style="{ color: activeItem === 'feats' ? 'red' : '' }"
+            >
+            <q-item-section avatar>
+                <q-icon name="filter_vintage" />
+              </q-item-section>
+
+              <q-item-section>
+                Feats
+              </q-item-section>
+            </q-item>
+
+            <q-item   
+            :active="activeItem === 'mods'" 
+            clickable
+            v-ripple
+            style="text-align: start;font-weight: 700; height: 50px;"
+            @click="changePage('mods')"
+            :style="{ color: activeItem === 'mods' ? 'red' : '' }"
+            >
+            <q-item-section avatar>
+                <q-icon name="brightness_7" />
+              </q-item-section>
+
+              <q-item-section>
+                Firearm <br /> Modifications
+              </q-item-section>
+            </q-item>
+          </q-list>
+        </q-scroll-area>
+      </q-drawer>
+<q-page-container>
+<q-page v-if="activeItem == 'main'">
+<div class="row justify-center q-pt-sm">
+  <div>
   <div class=" row wrap justify-center items-start content-start">
   <div class="justify-start items-start content-start col-auto">
       <q-card-section>
@@ -57,26 +198,51 @@
   </div>
   </div>
 </div>
+</q-page>
+<q-page v-if="activeItem == 'general'"> <GeneralComponent /></q-page>
+<q-page v-if="activeItem == 'feature'"> <FeaturesComponent /></q-page>
+<q-page v-if="activeItem == 'sub'"> <SubClassComponent /></q-page>
+<q-page v-if="activeItem == 'firearms'"> <FirearmsComponent /></q-page>
+<q-page v-if="activeItem == 'feats'"> <FeatsComponent /></q-page>
+<q-page v-if="activeItem == 'mods'"> <FirearmModsComponent /></q-page>
+</q-page-container>
+</q-layout>
+  </div>
 </template>
 
 <script>
 import SkillComponent from '@/components/SkillComponent.vue'
+import GeneralComponent from '@/components/GeneralComponent.vue'
+import FeaturesComponent from '@/components/FeaturesComponent.vue'
+import SubClassComponent from '@/components/SubClassComponent.vue'
+import FirearmsComponent from '@/components/FirearmsComponent.vue'
+import FirearmModsComponent from '@/components/FirearmModsComponent.vue'
 import data from '@/server/assets/data.json'
 import miscData from '@/server/assets/miscData.json'
 import axios from 'axios';
-
+import { ref } from 'vue'
+import FeatsComponent from '@/components/FeatsComponent.vue'
 export default {
   name: 'HomeView',
   components: {
-    SkillComponent
-  },
+    SkillComponent,
+    GeneralComponent,
+    FeaturesComponent,
+    SubClassComponent,
+    FirearmsComponent,
+    FeatsComponent,
+    FirearmModsComponent
+},
   
   data() {
     return {
       items: data,
       critManager: miscData.critManager,
       numShotgunBullet: miscData.numShotgunBullet,
-      numPistolBullet: miscData.numPistolBullet
+      numPistolBullet: miscData.numPistolBullet,
+      drawer: ref(false),
+      miniState: ref(true),
+      activeItem: 'main',
     }
   },
   watch: {
@@ -91,6 +257,9 @@ export default {
     },
   }, 
   methods: {
+    changePage(item) {
+      this.activeItem = item;
+    },
     updateInStock(id, newInStockValue){
       const itemToUpdate = this.items.find((item) => item.id === id);
       if (itemToUpdate) {
