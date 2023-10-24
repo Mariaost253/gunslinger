@@ -199,8 +199,9 @@
   </div>
 </div>
 </q-page>
+<keep-alive>
 <q-page> <component :is="activeItem"> </component></q-page>
-
+</keep-alive>
 </q-page-container>
 </q-layout>
   </div>
