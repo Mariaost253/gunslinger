@@ -35,12 +35,12 @@
             </q-item>
 
             <q-item   
-            :active="activeItem === 'general'" 
+            :active="activeItem === 'general-component'" 
             clickable
             v-ripple
             style="text-align: start; font-weight: 700;"
-            @click="changePage('general')"
-            :style="{ color: activeItem === 'general' ? 'red' : '' }"
+            @click="changePage('general-component')"
+            :style="{ color: activeItem === 'general-component' ? 'red' : '' }"
             >
               <q-item-section avatar>
                 <q-icon name="blur_on" />
@@ -52,12 +52,12 @@
             </q-item>
 
             <q-item   
-            :active="activeItem === 'feature'" 
+            :active="activeItem === 'features-component'" 
             clickable
             v-ripple
             style="text-align: start; font-weight: 700;"
-            @click="changePage('feature')"
-            :style="{ color: activeItem === 'feature' ? 'red' : '' }"
+            @click="changePage('features-component')"
+            :style="{ color: activeItem === 'features-component' ? 'red' : '' }"
             >
               <q-item-section avatar>
                 <q-icon name="grain" />
@@ -69,12 +69,12 @@
             </q-item>
 
             <q-item   
-            :active="activeItem === 'sub'" 
+            :active="activeItem === 'sub-class-component'" 
             clickable
             v-ripple
             style="text-align: start;font-weight: 700;"
-            @click="changePage('sub')"
-            :style="{ color: activeItem === 'sub' ? 'red' : '' }"
+            @click="changePage('sub-class-component')"
+            :style="{ color: activeItem === 'sub-class-component' ? 'red' : '' }"
             >
             <q-item-section avatar>
                 <q-icon name="deblur" />
@@ -86,12 +86,12 @@
             </q-item>
 
             <q-item   
-            :active="activeItem === 'firearms'" 
+            :active="activeItem === 'firearms-component'" 
             clickable
             v-ripple
             style="text-align: start;font-weight: 700;"
-            @click="changePage('firearms')"
-            :style="{ color: activeItem === 'firearms' ? 'red' : '' }"
+            @click="changePage('firearms-component')"
+            :style="{ color: activeItem === 'firearms-component' ? 'red' : '' }"
             >
             <q-item-section avatar>
                 <q-icon name="blur_circular" />
@@ -103,12 +103,12 @@
             </q-item>
 
             <q-item   
-            :active="activeItem === 'feats'" 
+            :active="activeItem === 'feats-component'" 
             clickable
             v-ripple
             style="text-align: start;font-weight: 700;"
-            @click="changePage('feats')"
-            :style="{ color: activeItem === 'feats' ? 'red' : '' }"
+            @click="changePage('feats-component')"
+            :style="{ color: activeItem === 'feats-component' ? 'red' : '' }"
             >
             <q-item-section avatar>
                 <q-icon name="filter_vintage" />
@@ -120,12 +120,12 @@
             </q-item>
 
             <q-item   
-            :active="activeItem === 'mods'" 
+            :active="activeItem === 'firearm-mods-component'" 
             clickable
             v-ripple
             style="text-align: start;font-weight: 700; height: 50px;"
-            @click="changePage('mods')"
-            :style="{ color: activeItem === 'mods' ? 'red' : '' }"
+            @click="changePage('firearm-mods-component')"
+            :style="{ color: activeItem === 'firearm-mods-component' ? 'red' : '' }"
             >
             <q-item-section avatar>
                 <q-icon name="brightness_7" />
@@ -199,12 +199,8 @@
   </div>
 </div>
 </q-page>
-<q-page v-if="activeItem == 'general'"> <GeneralComponent /></q-page>
-<q-page v-if="activeItem == 'feature'"> <FeaturesComponent /></q-page>
-<q-page v-if="activeItem == 'sub'"> <SubClassComponent /></q-page>
-<q-page v-if="activeItem == 'firearms'"> <FirearmsComponent /></q-page>
-<q-page v-if="activeItem == 'feats'"> <FeatsComponent /></q-page>
-<q-page v-if="activeItem == 'mods'"> <FirearmModsComponent /></q-page>
+<q-page> <component :is="activeItem"> </component></q-page>
+
 </q-page-container>
 </q-layout>
   </div>
